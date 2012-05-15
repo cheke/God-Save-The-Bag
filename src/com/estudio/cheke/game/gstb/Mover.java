@@ -124,11 +124,11 @@ public class Mover extends Cache implements Runnable {
 				}
 			}
 		}else{//Pause
-			if(!loadImages){
+			if(!loadImages&&Cache.hpor>0){
 				mtimer=0;
 				LoadBitmaps();
 				loadImages=true;
-			}else{
+			}else if(Cache.hpor>0){
 				int efimero=nubes.length;
 				for(int n=0;n<efimero;n++){
 					nubes[n].move(timeDeltaSeconds);
