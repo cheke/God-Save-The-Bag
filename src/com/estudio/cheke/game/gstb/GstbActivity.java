@@ -35,17 +35,20 @@ public class GstbActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		pause=true;
-		Cache.resource=getResources();
+		SoundManager.initSounds(this);
+		SoundManager.playSound(0, true);
 		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		Cache.setDimensions(display.getWidth(), display.getHeight());
+	}
+	public void onStart(){
+		super.onStart();
 		CanvasSurfaceView mCanvasSurfaceView = new CanvasSurfaceView(this);
 		SimpleCanvasRenderer spriteRenderer = new SimpleCanvasRenderer();
 		Mover simulationRuntime = new Mover();
-		Cache.setDimensions(display.getWidth(), display.getHeight());
 		mCanvasSurfaceView.setRenderer(spriteRenderer);
 		mCanvasSurfaceView.setEvent(simulationRuntime);
 		setContentView(mCanvasSurfaceView);
-		SoundManager.initSounds(this);
-		SoundManager.playSound(0, true);
+		Cache.resource=getResources();
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
