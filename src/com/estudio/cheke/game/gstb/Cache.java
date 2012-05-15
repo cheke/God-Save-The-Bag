@@ -35,6 +35,7 @@ public class Cache {
 	public static Buildings[] builds=new Buildings[20];
 	public static Mar mar=new Mar();
 	public static Control control=new Control();
+	public static Moon moon = new Moon();
 	public static float wpor,hpor;
 	public static float nivelPor=0;
 	public static float starYmax;
@@ -138,7 +139,7 @@ public class Cache {
 		}
 	}
 	public static void Sky(){
-		int bordeLuna=(int) (20*hpor);
+		int bordeLuna=(int) (40*hpor);
 		starYmax=(height/2)+bordeLuna;
 		starXmax=(width/2)+bordeLuna;
 		starY=(int) (((nivelPor*starYmax)/100)-bordeLuna);
@@ -255,6 +256,8 @@ public class Cache {
 		pajaro=null;
 		builds=null;
 		mar=null;
+		control=null;
+		moon=null;
 		wpor=hpor=nivelPor=starYmax=leveldoned=0;
 		resource=null;
 	}

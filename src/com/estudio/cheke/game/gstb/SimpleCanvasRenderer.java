@@ -76,19 +76,7 @@ public class SimpleCanvasRenderer extends Cache implements Renderer  {
 					canvas.drawCircle(95*wpor, 45*hpor, hpor, paint);
 				}
 				if(LevelNum!=1&&LevelNum!=4){
-					paint.setColor(Color.LTGRAY);
-					canvas.drawCircle(starX, starY, 20*hpor, paint);
-					paint.setColor(Color.DKGRAY);
-					canvas.drawCircle(starX+(2*hpor), starY+(9*hpor), 2*hpor, paint);
-					canvas.drawCircle(starX-(10*hpor), starY-(2*hpor), 5*hpor, paint);
-					canvas.drawCircle(starX+(5*hpor), starY-(5*hpor), 3*hpor, paint);
-					canvas.drawCircle(starX-(3*hpor), starY+(12*hpor), 2*hpor, paint);
-					paint.setColor(Color.GRAY);
-					canvas.drawCircle(starX+(12*hpor), starY+(3*hpor), 6*hpor, paint);
-					canvas.drawCircle(starX-(9*hpor), starY-(2*hpor), 3*hpor, paint);
-					canvas.drawCircle(starX-(5*hpor), starY+(5*hpor), 4*hpor, paint);
-					canvas.drawCircle(starX+(3*hpor), starY-(12*hpor), 3*hpor, paint);
-					canvas.drawCircle(starX+(11*hpor), starY+(11*hpor), 3*hpor, paint);
+					moon.draw(canvas, starX, starY);
 				}
 				paint.setColor(Color.BLACK);
 				efimero=nubes.length;
