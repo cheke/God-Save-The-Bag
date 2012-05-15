@@ -37,11 +37,11 @@ public class GstbActivity extends Activity {
 		pause=true;
 		Cache.resource=getResources();
 		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
-		Cache.setDimensions(display.getWidth(), display.getHeight());
 		CanvasSurfaceView mCanvasSurfaceView = new CanvasSurfaceView(this);
 		SimpleCanvasRenderer spriteRenderer = new SimpleCanvasRenderer();
-		mCanvasSurfaceView.setRenderer(spriteRenderer);
 		Mover simulationRuntime = new Mover();
+		Cache.setDimensions(display.getWidth(), display.getHeight());
+		mCanvasSurfaceView.setRenderer(spriteRenderer);
 		mCanvasSurfaceView.setEvent(simulationRuntime);
 		setContentView(mCanvasSurfaceView);
 		SoundManager.initSounds(this);
