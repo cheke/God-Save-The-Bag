@@ -14,7 +14,9 @@ package com.estudio.cheke.game.gstb.objects;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Picture;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
@@ -33,27 +35,18 @@ public class Mar extends Object{
 	public void draw(Canvas canvas) {
 		Rect dst=new Rect();
 		boolean dof1oneTime=false;
-		int wW2=((canvaswidth/width)+2);
 		int efimero=filasY.length;
 		for(int f=0;f<efimero;f++){
 			int movS=filasY[f]+Cache.marUp+Cache.bagUp;
-			for(int c=wW2;c>=0;c--){//make starting for the end for overlap
-				if(f==1&&!dof1oneTime){
-					moveX*=-1;
-					dof1oneTime=true;
-				}else if(f!=1&&dof1oneTime){
-					moveX*=-1;
-					dof1oneTime=false;
-				}
-				if(c==0){
-					dst.set(filasX[f]+moveX, movS, filasX[f]+width+moveX, height+movS);
-				}else{
-					int left=newWidth*c+moveX;
-					int right=left+width;
-					dst.set(filasX[f]+left, movS, filasX[f]+right, height+movS);
-				}
-				canvas.drawPicture(Cache.olas[0], dst);//CHange
+			if(f==1&&!dof1oneTime){
+				moveX*=-1;
+				dof1oneTime=true;
+			}else if(f!=1&&dof1oneTime){
+				moveX*=-1;
+				dof1oneTime=false;
 			}
+			dst.set(filasX[f]+moveX, movS, filasX[f]+width+moveX, height+movS);
+			canvas.drawPicture(Cache.olas[0], dst);//CHange
 		}
 		int ola2=y+Cache.bagUp+olaY+Cache.marUp;
 		dst.set(x, ola2, x+width2, ola2+height2);
@@ -82,9 +75,33 @@ public class Mar extends Object{
 			x=150;
 			y=(int) (canvasheight-height2+(Cache.hpor*5));
 		}
-		newWidth=(int)(width-(Cache.wpor*8));
+		newWidth=(int)(width*0.9);
+		makeMultiMarPicture();
 	}
-
+	public void makeMultiMarPicture(){
+		int wW2=((canvaswidth/width)+2);
+		Picture newPicture = new Picture();
+		Canvas canvas;
+		int Width=width+((wW2-1)*newWidth);
+		Bitmap bitmap=Bitmap.createBitmap(Width,height, Bitmap.Config.ARGB_4444);
+		canvas = new Canvas(bitmap);
+		Rect dst=new Rect();
+		canvas=newPicture.beginRecording(Width, height);
+		for(int c=wW2;c>=0;c--){//make starting for the end for overlap
+			if(c==0){
+				dst.set(0, 0, width, height);
+			}else{
+				int left=newWidth*c;
+				int right=left+width;
+				dst.set(left, 0, right, height);
+			}
+			canvas.drawPicture(Cache.olas[0], dst);//CHange
+		}
+		width=Width;
+		newPicture.endRecording();
+		bitmap=null;
+		Cache.olas[0]=newPicture;
+	}
 	public boolean contacto(int right, int yB, int h){
 		boolean touch=false;
 		if(right>=x&&right<=x+width2){ 
