@@ -43,85 +43,86 @@ public class Mover extends Cache implements Runnable {
 			countSec++;
 			mtimer = timer;
 		}
-
 		if (!GstbActivity.pause) {
-			if(nubes!=null&&mountain!=null){
-				int efimero=nubes.length;
-				for(int n=0;n<efimero;n++){
-					nubes[n].move(timeDeltaSeconds);
-				}
-				efimero=pajaro.length;
-				for(int p=0;p<efimero;p++){
-					if(pajaro[p].contacto(canvasArray.x+canvasArray.width, canvasArray.y,canvasArray.height)){
-						nivelPor=0;
-						leveldoned=0;
+			if(loadImagesB){
+				if(nubes!=null&&mountain!=null){
+					int efimero=nubes.length;
+					for(int n=0;n<efimero;n++){
+						nubes[n].move(timeDeltaSeconds);
 					}
-					pajaro[p].move(timeDeltaSeconds);
-				}
-				leveldoned += (125+(Velocity.Speed*15)) * timeDeltaSeconds;
-				barraNivelX=(int) ((leveldoned*width)/10000);
-				nivelPor=leveldoned/100;//*100/10000
-				switch(LevelNum){
-				case 1:
-					moveSun();
-					efimero=mountain.length;
-					for(int m=0;m<efimero;m++){
-						mountain[m].move(timeDeltaSeconds);
-					}
-					efimero=arboles.length;
-					for(int a=0;a<efimero;a++){
-						arboles[a].move(timeDeltaSeconds);
-						if(arboles[a].contacto(canvasArray.x+canvasArray.width, canvasArray.y+canvasArray.height)){
+					efimero=pajaro.length;
+					for(int p=0;p<efimero;p++){
+						if(pajaro[p].contacto(canvasArray.x+canvasArray.width, canvasArray.y,canvasArray.height)){
 							nivelPor=0;
 							leveldoned=0;
 						}
+						pajaro[p].move(timeDeltaSeconds);
 					}
-					if(nivelPor>90){
-						bagUp=moveInt(bagUp,timeDeltaSeconds,true);
-					}
-					break;
-				case 2:
-					Sky();
-					break;
-				case 3:
-					Sea();
-					mar.move(timeDeltaSeconds);
-					if(mar.contacto(canvasArray.x+canvasArray.width, canvasArray.y,canvasArray.height)){
-						nivelPor=0;
-						leveldoned=0;
-					}
-					if(bagUp>0){
-						bagUp=moveInt(bagUp,timeDeltaSeconds,false);
-					}
-					if(nivelPor>70){
-						if(SueloUp>0){
-							SueloUp=moveInt(SueloUp,timeDeltaSeconds,false);
+					leveldoned += (125+(Velocity.Speed*15)) * timeDeltaSeconds;
+					barraNivelX=(int) ((leveldoned*width)/10000);
+					nivelPor=leveldoned/100;//*100/10000
+					switch(LevelNum){
+					case 1:
+						moveSun();
+						efimero=mountain.length;
+						for(int m=0;m<efimero;m++){
+							mountain[m].move(timeDeltaSeconds);
 						}
-						if(nivelPor>95){
-							marUp=moveInt(marUp,timeDeltaSeconds,true);
+						efimero=arboles.length;
+						for(int a=0;a<efimero;a++){
+							arboles[a].move(timeDeltaSeconds);
+							if(arboles[a].contacto(canvasArray.x+canvasArray.width, canvasArray.y+canvasArray.height)){
+								nivelPor=0;
+								leveldoned=0;
+							}
 						}
-					}
-					break;
-				case 4:
-					City();
-					efimero=arboles.length;
-					for(int a=0;a<efimero;a++){
-						arboles[a].move(timeDeltaSeconds);
-						if(arboles[a].contacto(canvasArray.x+canvasArray.width, canvasArray.y+canvasArray.height)){
+						if(nivelPor>90){
+							bagUp=moveInt(bagUp,timeDeltaSeconds,true);
+						}
+						break;
+					case 2:
+						Sky();
+						break;
+					case 3:
+						Sea();
+						mar.move(timeDeltaSeconds);
+						if(mar.contacto(canvasArray.x+canvasArray.width, canvasArray.y,canvasArray.height)){
 							nivelPor=0;
 							leveldoned=0;
 						}
+						if(bagUp>0){
+							bagUp=moveInt(bagUp,timeDeltaSeconds,false);
+						}
+						if(nivelPor>70){
+							if(SueloUp>0){
+								SueloUp=moveInt(SueloUp,timeDeltaSeconds,false);
+							}
+							if(nivelPor>95){
+								marUp=moveInt(marUp,timeDeltaSeconds,true);
+							}
+						}
+						break;
+					case 4:
+						City();
+						efimero=arboles.length;
+						for(int a=0;a<efimero;a++){
+							arboles[a].move(timeDeltaSeconds);
+							if(arboles[a].contacto(canvasArray.x+canvasArray.width, canvasArray.y+canvasArray.height)){
+								nivelPor=0;
+								leveldoned=0;
+							}
+						}
+						efimero=builds.length;
+						for(int b=0;b<efimero;b++){
+							builds[b].move(timeDeltaSeconds);
+						}
+						break;
 					}
-					efimero=builds.length;
-					for(int b=0;b<efimero;b++){
-						builds[b].move(timeDeltaSeconds);
+					if(!menuFin){
+						canvasArray.gravity(timeDeltaSeconds);
+						canvasArray.move(timeDeltaSeconds);
+						canvasArray.moveX(timeDeltaSeconds);
 					}
-					break;
-				}
-				if(!menuFin){
-					canvasArray.gravity(timeDeltaSeconds);
-					canvasArray.move(timeDeltaSeconds);
-					canvasArray.moveX(timeDeltaSeconds);
 				}
 			}
 		}else{//Pause
