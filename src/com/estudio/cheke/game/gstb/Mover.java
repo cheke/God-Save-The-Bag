@@ -28,6 +28,7 @@ import android.os.SystemClock;
 public class Mover extends Cache implements Runnable {
 	private long mLastTime;
 	private long mtimer;
+	private boolean loadB=false;
 	static int TIME_FOR_OBJECT = 1000;
 	public void run() {
 		final long timer =SystemClock.uptimeMillis();
@@ -124,11 +125,11 @@ public class Mover extends Cache implements Runnable {
 				}
 			}
 		}else{//Pause
-			if(!loadImages&&Cache.hpor>0){
+			if(!loadImages){
 				mtimer=0;
-				LoadBitmaps();
+				PreLoadBitmaps();
 				loadImages=true;
-			}else if(Cache.hpor>0){
+			}else{
 				int efimero=nubes.length;
 				for(int n=0;n<efimero;n++){
 					nubes[n].move(timeDeltaSeconds);
@@ -141,25 +142,23 @@ public class Mover extends Cache implements Runnable {
 				for(int a=0;a<efimero;a++){
 					arboles[a].move(timeDeltaSeconds);
 				}
+				if(!loadB){
+					new Thread(new Runnable() {
+						public void run() {
+							LoadBitmaps();
+						}
+					}).start();
+					loadB=true;
+				}
 			}
 		}
 	}
-	public void LoadBitmaps(){
-		SVG svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa1);
-		mPictures[0]=svg.getPicture();
-		svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa2);
-		mPictures[1]=svg.getPicture();
-		svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa3);
-		mPictures[2]=svg.getPicture();
-		svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa4);
-		mPictures[3]=svg.getPicture();
-		canvasArray=new CanvasSprite();
-		canvasArray.setSize(svg.getLimits());
+	public void PreLoadBitmaps(){
 		int efimero=mountain.length;
 		for(int m=0;m<efimero;m++){
 			mountain[m]=new Horizonte(m);
 		}
-		svg = SVGParser.getSVGFromResource(resource, R.raw.roque_nublo);
+		SVG svg = SVGParser.getSVGFromResource(resource, R.raw.roque_nublo);
 		mountains[0]=svg.getPicture();
 		mountain[0].setSize(svg.getLimits());
 		svg = SVGParser.getSVGFromResource(resource, R.raw.timanfaya);
@@ -169,12 +168,6 @@ public class Mover extends Cache implements Runnable {
 		for(int m=1;m<efimero;m++){
 			mountain[m].setSize(svg.getLimits());
 		}
-		svg = SVGParser.getSVGFromResource(resource, R.raw.mar);
-		olas[0]=svg.getPicture();
-		mar.setSize(svg.getLimits(),0);
-		svg = SVGParser.getSVGFromResource(resource, R.raw.ola);
-		olas[1]=svg.getPicture();
-		mar.setSize(svg.getLimits(),1);
 		efimero=nubes.length;
 		for(int n=0;n<efimero;n++){
 			if(nubes[n]==null){
@@ -187,7 +180,35 @@ public class Mover extends Cache implements Runnable {
 				arboles[a]=new Tree();
 			}
 		}
-		efimero=pajaro.length;
+		svg = SVGParser.getSVGFromResource(resource, R.raw.play);
+		menu[0]=svg.getPicture();
+		svg = SVGParser.getSVGFromResource(resource, R.raw.exit);
+		menu[1]=svg.getPicture();
+		menuX=(int) svg.getLimits().right;
+		menuY=(int) svg.getLimits().bottom;
+		float multiplier=menuX/(70*wpor);
+		menuX=(int) (70*wpor);
+		menuY=(int) (menuY/multiplier);
+	}
+	public void LoadBitmaps(){
+		moon.makeMoon();
+		SVG svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa1);
+		mPictures[0]=svg.getPicture();
+		svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa2);
+		mPictures[1]=svg.getPicture();
+		svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa3);
+		mPictures[2]=svg.getPicture();
+		svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa4);
+		mPictures[3]=svg.getPicture();
+		canvasArray=new CanvasSprite();
+		canvasArray.setSize(svg.getLimits());
+		svg = SVGParser.getSVGFromResource(resource, R.raw.mar);
+		olas[0]=svg.getPicture();
+		mar.setSize(svg.getLimits(),0);
+		svg = SVGParser.getSVGFromResource(resource, R.raw.ola);
+		olas[1]=svg.getPicture();
+		mar.setSize(svg.getLimits(),1);
+		int efimero=pajaro.length;
 		for(int p=0;p<efimero;p++){
 			if(pajaro[p]==null){
 				pajaro[p]=new Pajaro();
@@ -201,15 +222,6 @@ public class Mover extends Cache implements Runnable {
 		}
 		svg = SVGParser.getSVGFromResource(resource, R.raw.move);
 		control.setPicture(svg.getPicture());
-		svg = SVGParser.getSVGFromResource(resource, R.raw.play);
-		menu[0]=svg.getPicture();
-		svg = SVGParser.getSVGFromResource(resource, R.raw.exit);
-		menu[1]=svg.getPicture();
-		menuX=(int) svg.getLimits().right;
-		menuY=(int) svg.getLimits().bottom;
-		float multiplier=menuX/(70*wpor);
-		menuX=(int) (70*wpor);
-		menuY=(int) (menuY/multiplier);
-		Cache.loadImages=true;
+		loadImagesB=true;
 	}
 }
