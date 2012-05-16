@@ -153,6 +153,9 @@ public class Mover extends Cache implements Runnable {
 				}
 			}
 		}
+		if(setdefault){
+			setDefaultAll();
+		}
 	}
 	public void PreLoadBitmaps(){
 		int efimero=mountain.length;
