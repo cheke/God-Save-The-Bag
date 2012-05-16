@@ -28,8 +28,8 @@ import android.graphics.Typeface;
  */
 public class SimpleCanvasRenderer extends Cache implements Renderer  {
 	public void drawFrame(Canvas canvas) {
-		if(loadImages){
-			if (!GstbActivity.pause) {
+		if (!GstbActivity.pause) {
+			if(loadImagesB){
 				canvas.drawRGB(rgb[0], rgb[1], rgb[2]);
 				Paint paint=new Paint();
 				paint.setFlags(1);
@@ -39,9 +39,11 @@ public class SimpleCanvasRenderer extends Cache implements Renderer  {
 					canvas.drawCircle(starX, starY, 15*hpor, paint);
 					if(SunLines){
 						paint.setStrokeWidth(5*hpor);
-						efimero=SunLine.length;
-						for(int l=0;l<efimero;l++){
-							canvas.drawLine(SunLine[l].left,SunLine[l].top ,SunLine[l].right ,SunLine[l].bottom , paint);
+						if(SunLine!=null){
+							efimero=SunLine.length;
+							for(int l=0;l<efimero;l++){
+								canvas.drawLine(SunLine[l].left,SunLine[l].top ,SunLine[l].right ,SunLine[l].bottom , paint);
+							}
 						}
 					}
 				}
@@ -50,9 +52,11 @@ public class SimpleCanvasRenderer extends Cache implements Renderer  {
 					canvas.drawCircle(starX, starY, 15*hpor, paint);
 					if(SunLines){
 						paint.setStrokeWidth(5*hpor);
-						efimero=SunLine.length;
-						for(int l=0;l<efimero;l++){
-							canvas.drawLine(SunLine[l].left,SunLine[l].top ,SunLine[l].right ,SunLine[l].bottom , paint);
+						if(SunLine!=null){
+							efimero=SunLine.length;
+							for(int l=0;l<efimero;l++){
+								canvas.drawLine(SunLine[l].left,SunLine[l].top ,SunLine[l].right ,SunLine[l].bottom , paint);
+							}
 						}
 					}
 				}
@@ -79,23 +83,29 @@ public class SimpleCanvasRenderer extends Cache implements Renderer  {
 					moon.draw(canvas, starX, starY);
 				}
 				paint.setColor(Color.BLACK);
-				efimero=nubes.length;
-				for(int n=0;n<efimero;n++){
-					if(nubes[n]!=null){
-						nubes[n].draw(canvas);
+				if(nubes!=null){
+					efimero=nubes.length;
+					for(int n=0;n<efimero;n++){
+						if(nubes[n]!=null){
+							nubes[n].draw(canvas);
+						}
 					}
 				}
 				if(LevelNum==1){
-					efimero=mountain.length;
-					for(int m=0;m<efimero;m++){
-						if(mountain[m]!=null){
-							mountain[m].draw(canvas);
+					if(mountain!=null){
+						efimero=mountain.length;
+						for(int m=0;m<efimero;m++){
+							if(mountain[m]!=null){
+								mountain[m].draw(canvas);
+							}
 						}
 					}
-					efimero=arboles.length;
-					for(int a=0;a<efimero;a++){
-						if(arboles[a]!=null){
-							arboles[a].draw(canvas);
+					if(arboles!=null){
+						efimero=arboles.length;
+						for(int a=0;a<efimero;a++){
+							if(arboles[a]!=null){
+								arboles[a].draw(canvas);
+							}
 						}
 					}
 					canvas.drawRect(0, height-(15*hpor)+bagUp, width, height, paint);//Suelo
@@ -106,26 +116,32 @@ public class SimpleCanvasRenderer extends Cache implements Renderer  {
 					}
 				}
 				if(LevelNum==4){
-					efimero=builds.length;
-					for(int b=0;b<efimero;b++){
-						if(builds[b]!=null){
-							builds[b].draw(canvas);
+					if(builds!=null){
+						efimero=builds.length;
+						for(int b=0;b<efimero;b++){
+							if(builds[b]!=null){
+								builds[b].draw(canvas);
+							}
 						}
 					}
-					efimero=arboles.length;
-					for(int a=0;a<efimero;a++){
-						if(arboles[a]!=null){
-							arboles[a].draw(canvas);
+					if(arboles!=null){
+						efimero=arboles.length;
+						for(int a=0;a<efimero;a++){
+							if(arboles[a]!=null){
+								arboles[a].draw(canvas);
+							}
 						}
 					}
 				}
 				if(LevelNum>2){
 					canvas.drawRect(0, height-(15*hpor)+SueloUp, width, height, paint);//Suelo
 				}
-				efimero=pajaro.length;
-				for(int p=0;p<efimero;p++){
-					if(pajaro[p]!=null){
-						pajaro[p].draw(canvas);
+				if(pajaro!=null){
+					efimero=pajaro.length;
+					for(int p=0;p<efimero;p++){
+						if(pajaro[p]!=null){
+							pajaro[p].draw(canvas);
+						}
 					}
 				}
 				canvas.drawCircle(width-(10*wpor),10*wpor, 5*wpor, paint);//Circulo nivel
@@ -146,28 +162,36 @@ public class SimpleCanvasRenderer extends Cache implements Renderer  {
 					dst.set(menuleft, (menutop*3)+menuY, menuleft+menuX, (menutop*3)+menuY*2);
 					canvas.drawPicture(menu[1], dst);
 				}
-			}else{//pause true
+			}
+		}else{//pause true
+			if(loadImages){
 				Paint paint=new Paint();
 				paint.setFlags(1);
 				canvas.drawRGB(224, 218, 230);
 				paint.setColor(Color.BLACK);
 				int efimero;
-				efimero=nubes.length;
-				for(int n=0;n<efimero;n++){
-					if(nubes[n]!=null){
-						nubes[n].draw(canvas);
+				if(nubes!=null){
+					efimero=nubes.length;
+					for(int n=0;n<efimero;n++){
+						if(nubes[n]!=null){
+							nubes[n].draw(canvas);
+						}
 					}
 				}
-				efimero=mountain.length;
-				for(int m=0;m<efimero;m++){
-					if(mountain[m]!=null){
-						mountain[m].draw(canvas);
+				if(mountain!=null){
+					efimero=mountain.length;
+					for(int m=0;m<efimero;m++){
+						if(mountain[m]!=null){
+							mountain[m].draw(canvas);
+						}
 					}
 				}
-				efimero=arboles.length;
-				for(int a=0;a<efimero;a++){
-					if(arboles[a]!=null){
-						arboles[a].draw(canvas);
+				if(arboles!=null){
+					efimero=arboles.length;
+					for(int a=0;a<efimero;a++){
+						if(arboles[a]!=null){
+							arboles[a].draw(canvas);
+						}
 					}
 				}
 				canvas.drawRect(0, height-(15*hpor)+bagUp, width, height, paint);//Suelo
