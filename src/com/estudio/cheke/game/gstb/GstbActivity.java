@@ -30,6 +30,7 @@ import android.view.WindowManager;
 public class GstbActivity extends Activity {
 	public static boolean pause;
 	public static boolean touch=false;
+	CanvasSurfaceView mCanvasSurfaceView;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,13 +43,13 @@ public class GstbActivity extends Activity {
 	}
 	public void onStart(){
 		super.onStart();
-		CanvasSurfaceView mCanvasSurfaceView = new CanvasSurfaceView(this);
+		Cache.resource=getResources();
+		mCanvasSurfaceView = new CanvasSurfaceView(this);
 		SimpleCanvasRenderer spriteRenderer = new SimpleCanvasRenderer();
 		Mover simulationRuntime = new Mover();
 		mCanvasSurfaceView.setRenderer(spriteRenderer);
 		mCanvasSurfaceView.setEvent(simulationRuntime);
 		setContentView(mCanvasSurfaceView);
-		Cache.resource=getResources();
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -110,6 +111,7 @@ public class GstbActivity extends Activity {
 	}
 	public void finish(){
 		super.finish();
+		mCanvasSurfaceView.stopDrawing();
 		Cache.setDefaultAll();
 		SoundManager.stop();
 		SoundManager.cleanup();
