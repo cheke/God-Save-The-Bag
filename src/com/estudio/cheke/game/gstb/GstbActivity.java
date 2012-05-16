@@ -112,7 +112,7 @@ public class GstbActivity extends Activity {
 	public void finish(){
 		super.finish();
 		mCanvasSurfaceView.stopDrawing();
-		Cache.setDefaultAll();
+		Cache.setdefault=true;
 		SoundManager.stop();
 		SoundManager.cleanup();
 		System.gc();
