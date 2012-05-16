@@ -27,9 +27,7 @@ public class Moon {
 	private Picture moon=new Picture();
 	private int width, height;
 	Rect dst=new Rect();
-	public Moon(){
-		makeMoon();
-	}
+	public Moon(){}
 	public void makeMoon(){
 		Picture newPicture = new Picture();
 		Canvas canvas;
