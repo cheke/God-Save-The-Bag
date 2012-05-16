@@ -51,6 +51,14 @@ public class GstbActivity extends Activity {
 		mCanvasSurfaceView.setEvent(simulationRuntime);
 		setContentView(mCanvasSurfaceView);
 	}
+	public void onPause(){
+		super.onPause();
+		SoundManager.pause();
+	}
+	public void onResume(){
+		super.onResume();
+		SoundManager.resume();
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(!pause){
