@@ -43,6 +43,7 @@ public class Cache {
 	public static boolean SunLines=false;
 	public static boolean Stars=false;
 	public static boolean loadImages=false;
+	public static boolean loadImagesB=false;
 	public static boolean menuFin=false;
 	public static boolean controlT=false;
 	public static Rect[] SunLine=new Rect[4];
@@ -243,7 +244,7 @@ public class Cache {
 		Object.canvaswidth=w;
 	}
 	public static void setDefaultAll(){
-		SunLines=Stars=loadImages=menuFin=false;
+		SunLines=Stars=loadImages=loadImagesB=menuFin=false;
 		SunLine=null;
 		SunLineX=SunLineY=rgb=null;
 		width=height=barraNivelX=starY=starX=starXmax=countSec=bagUp=marUp=SueloUp=menuX=menuY=menuleft=menutop=0;
