@@ -87,6 +87,16 @@ public class SoundManager{
 			mMediaPlayer.stop();
 		}
 	}
+	public static void pause() {
+		if (mMediaPlayer != null) {
+			mMediaPlayer.pause();
+		}
+	}
+	public static void resume() {
+		if (mMediaPlayer != null) {
+			mMediaPlayer.start();
+		}
+	}
 	public static boolean songPlaying(){
 		boolean play=false;
 		if (mMediaPlayer != null) {
