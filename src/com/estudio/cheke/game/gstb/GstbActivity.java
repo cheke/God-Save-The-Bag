@@ -53,31 +53,33 @@ public class GstbActivity extends Activity {
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		touch=true;
-		int movMin=10;
-		int mov=movMin;
-		boolean x=false;
-		boolean back=false;
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_DPAD_LEFT:
-			mov=-movMin;
-		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			x=true;
-			break;
-		case KeyEvent.KEYCODE_DPAD_UP:
-			mov=-movMin;
-		case KeyEvent.KEYCODE_DPAD_DOWN:
-			x=false;
-			break;
-		case KeyEvent.KEYCODE_BACK:
-			back=true;
-			finish();
-			break;
-		default:
-			return super.onKeyDown(keyCode, event);
-		}
-		if(!back){
-			Cache.canvasArray.moveBolsa(mov, x);
+		if(!pause){
+			touch=true;
+			int movMin=10;
+			int mov=movMin;
+			boolean x=false;
+			boolean back=false;
+			switch (keyCode) {
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+				mov=-movMin;
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				x=true;
+				break;
+			case KeyEvent.KEYCODE_DPAD_UP:
+				mov=-movMin;
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+				x=false;
+				break;
+			case KeyEvent.KEYCODE_BACK:
+				back=true;
+				finish();
+				break;
+			default:
+				return super.onKeyDown(keyCode, event);
+			}
+			if(!back){
+				Cache.canvasArray.moveBolsa(mov, x);
+			}
 		}
 		return true;
 	}
