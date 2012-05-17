@@ -18,6 +18,7 @@ package com.estudio.cheke.game.gstb;
 import com.estudio.cheke.game.gstb.objects.Buildings;
 import com.estudio.cheke.game.gstb.objects.CanvasSprite;
 import com.estudio.cheke.game.gstb.objects.Horizonte;
+import com.estudio.cheke.game.gstb.objects.Moon;
 import com.estudio.cheke.game.gstb.objects.Nube;
 import com.estudio.cheke.game.gstb.objects.Pajaro;
 import com.estudio.cheke.game.gstb.objects.Tree;
@@ -195,6 +196,9 @@ public class Mover extends Cache implements Runnable {
 		menuY=(int) (menuY/multiplier);
 	}
 	public void LoadBitmaps(){
+		if(moon==null){
+			moon=new Moon();
+		}
 		moon.makeMoon();
 		SVG svg = SVGParser.getSVGFromResource(resource, R.raw.bolsa1);
 		mPictures[0]=svg.getPicture();
