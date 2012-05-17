@@ -40,7 +40,7 @@ public class SoundManager{
 		getInstance();
 	}
 	public static void playSound(int song, boolean loop) {
-		if(mMediaPlayer!=null){
+		if(mMediaPlayer!=null&&mMediaPlayer.isPlaying()){
 			stop();
 		}
 		music=song;
@@ -93,7 +93,7 @@ public class SoundManager{
 		}
 	}
 	public static void resume() {
-		if (mMediaPlayer != null) {
+		if (mMediaPlayer != null&&!mMediaPlayer.isPlaying()) {
 			mMediaPlayer.start();
 		}
 	}
