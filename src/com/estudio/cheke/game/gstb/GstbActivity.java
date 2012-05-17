@@ -31,6 +31,7 @@ public class GstbActivity extends Activity {
 	public static boolean pause;
 	public static boolean touch=false;
 	CanvasSurfaceView mCanvasSurfaceView;
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
