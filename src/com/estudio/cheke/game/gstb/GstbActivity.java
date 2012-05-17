@@ -61,7 +61,7 @@ public class GstbActivity extends Activity {
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(!pause){
+		if(Cache.loadImagesB){
 			touch=true;
 			int movMin=10;
 			int mov=movMin;
