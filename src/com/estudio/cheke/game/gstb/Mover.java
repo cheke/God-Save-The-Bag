@@ -144,7 +144,7 @@ public class Mover extends Cache implements Runnable {
 				for(int a=0;a<efimero;a++){
 					arboles[a].move(timeDeltaSeconds);
 				}
-				if(!loadB){
+				if(!loadB&&hpor>0f){
 					new Thread(new Runnable() {
 						public void run() {
 							LoadBitmaps();
