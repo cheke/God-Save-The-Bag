@@ -37,7 +37,8 @@ public class CanvasSurfaceView extends SurfaceView   implements SurfaceHolder.Ca
         super(context, attrs);
         init();
     }
-    private void init() {
+    @SuppressWarnings("deprecation")
+	private void init() {
         // Install a SurfaceHolder.Callback so we get notified when the
         // underlying surface is created and destroyed
         mHolder = getHolder();
