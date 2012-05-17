@@ -29,31 +29,37 @@ public class Moon {
 	Rect dst=new Rect();
 	public Moon(){}
 	public void makeMoon(){
-		Picture newPicture = new Picture();
-		Canvas canvas;
-		int minRadius=(int) (20*Cache.hpor);
-		width=height=minRadius*2;
-		Bitmap bitmap=Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_4444);
-		canvas = new Canvas(bitmap);
-		Paint paint=new Paint();
-		paint.setFlags(1);
-		paint.setColor(Color.LTGRAY);
-		canvas=newPicture.beginRecording(width, height);
-		canvas.drawCircle(minRadius, minRadius, minRadius, paint);
-		paint.setColor(Color.DKGRAY);
-		canvas.drawCircle(22*Cache.hpor, 29*Cache.hpor, 2*Cache.hpor, paint);
-		canvas.drawCircle(10*Cache.hpor, 18*Cache.hpor, 5*Cache.hpor, paint);
-		canvas.drawCircle(25*Cache.hpor, 15*Cache.hpor, 3*Cache.hpor, paint);
-		canvas.drawCircle(17*Cache.hpor, 32*Cache.hpor, 2*Cache.hpor, paint);
-		paint.setColor(Color.GRAY);
-		canvas.drawCircle(32*Cache.hpor, 23*Cache.hpor, 6*Cache.hpor, paint);
-		canvas.drawCircle(11*Cache.hpor, 18*Cache.hpor, 3*Cache.hpor, paint);
-		canvas.drawCircle(15*Cache.hpor, 25*Cache.hpor, 4*Cache.hpor, paint);
-		canvas.drawCircle(23*Cache.hpor, 8*Cache.hpor, 3*Cache.hpor, paint);
-		canvas.drawCircle(31*Cache.hpor, 31*Cache.hpor, 3*Cache.hpor, paint);
-		newPicture.endRecording();
-		bitmap=null;
-		moon=newPicture;
+		new Thread(new Runnable() {
+			public void run() {
+				if(Cache.hpor>0f){
+					Picture newPicture = new Picture();
+					Canvas canvas;
+					int minRadius=(int) (20*Cache.hpor);
+					width=height=minRadius*2;
+					Bitmap bitmap=Bitmap.createBitmap(width,height, Bitmap.Config.ARGB_4444);
+					canvas = new Canvas(bitmap);
+					Paint paint=new Paint();
+					paint.setFlags(1);
+					paint.setColor(Color.LTGRAY);
+					canvas=newPicture.beginRecording(width, height);
+					canvas.drawCircle(minRadius, minRadius, minRadius, paint);
+					paint.setColor(Color.DKGRAY);
+					canvas.drawCircle(22*Cache.hpor, 29*Cache.hpor, 2*Cache.hpor, paint);
+					canvas.drawCircle(10*Cache.hpor, 18*Cache.hpor, 5*Cache.hpor, paint);
+					canvas.drawCircle(25*Cache.hpor, 15*Cache.hpor, 3*Cache.hpor, paint);
+					canvas.drawCircle(17*Cache.hpor, 32*Cache.hpor, 2*Cache.hpor, paint);
+					paint.setColor(Color.GRAY);
+					canvas.drawCircle(32*Cache.hpor, 23*Cache.hpor, 6*Cache.hpor, paint);
+					canvas.drawCircle(11*Cache.hpor, 18*Cache.hpor, 3*Cache.hpor, paint);
+					canvas.drawCircle(15*Cache.hpor, 25*Cache.hpor, 4*Cache.hpor, paint);
+					canvas.drawCircle(23*Cache.hpor, 8*Cache.hpor, 3*Cache.hpor, paint);
+					canvas.drawCircle(31*Cache.hpor, 31*Cache.hpor, 3*Cache.hpor, paint);
+					newPicture.endRecording();
+					bitmap=null;
+					moon=newPicture;
+				}
+			}
+		}).start();
 	}
 	public void draw(Canvas canvas,int starX, int starY){
 		dst.set(starX, starY, starX+width, starY+height);
