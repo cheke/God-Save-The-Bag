@@ -20,6 +20,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.Rect;
 
 public class Tree extends Object{
 	private int numMaxRamas=4;
@@ -33,7 +35,8 @@ public class Tree extends Object{
 	private int bordeLeft=0, bordeTop=0;
 	private rama[] ramas;
 	private rama[] oldramas;
-	private Bitmap arbol;
+	private Picture arbol;
+	Rect dst=new Rect();
 	private class rama{
 		public int x=0;
 		public int y=0;
@@ -65,8 +68,10 @@ public class Tree extends Object{
 			public void run() {
 				int widthB=maxB;
 				int heightB=maxB;
-				Bitmap arbol2 = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.ARGB_4444);
-				Canvas canvas = new Canvas(arbol2);
+				//Bitmap arbol2 = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.ARGB_4444);
+				Canvas canvas = new Canvas();
+				arbol = new Picture();
+				canvas=arbol.beginRecording(width, height);
 				Paint paint=new Paint();
 				if(grey){
 					paint.setColor(Color.GRAY);
@@ -81,10 +86,11 @@ public class Tree extends Object{
 				actualLevel++;
 				stroke-=2;
 				makeRamas(canvas,paint);
-				arbol=arbol2;
+				//arbol=arbol2;
 				width=(int) (Cache.wpor*33);
 				height=(int) (Cache.wpor*33);
-				arbol=Bitmap.createScaledBitmap(arbol,width,height, true);
+				//arbol=Bitmap.createScaledBitmap(arbol,width,height, true);
+				arbol.endRecording();
 				x=(int) (canvaswidth+800*Math.random());
 				y=(int) (15*Cache.hpor);
 			}
@@ -110,7 +116,9 @@ public class Tree extends Object{
 	}
 
 	public void draw(Canvas canvas) {
-		canvas.drawBitmap(arbol, x, canvasheight-(y + height)+Cache.bagUp, null);
+		//canvas.drawBitmap(arbol, x, canvasheight-(y + height)+Cache.bagUp, null);
+		dst.set(x, canvasheight-(y + height)+Cache.bagUp, x+width, canvasheight-(y + height+height)+Cache.bagUp);
+		canvas.drawPicture(arbol, dst);
 	}
 	private void makeRamas(Canvas canvas,Paint paint){
 		oldramas=ramas;
