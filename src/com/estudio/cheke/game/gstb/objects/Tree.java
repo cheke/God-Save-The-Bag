@@ -16,7 +16,6 @@ package com.estudio.cheke.game.gstb.objects;
  */
 import com.estudio.cheke.game.gstb.Cache;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -69,9 +68,9 @@ public class Tree extends Object{
 				int widthB=maxB;
 				int heightB=maxB;
 				//Bitmap arbol2 = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.ARGB_4444);
-				Canvas canvas = new Canvas();
+				//Canvas canvas = new Canvas();
 				arbol = new Picture();
-				canvas=arbol.beginRecording(width, height);
+				Canvas canvas=arbol.beginRecording(width, height);
 				Paint paint=new Paint();
 				if(grey){
 					paint.setColor(Color.GRAY);
