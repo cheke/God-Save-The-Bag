@@ -16,20 +16,22 @@ package com.estudio.cheke.game.gstb.objects;
  */
 import com.estudio.cheke.game.gstb.Cache;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.Rect;
 
 public class Pajaro extends Object{
 	private int currentFrame=0; //current frame being played
 	private static int waitDelay=15; // delay before the next frame
 	private boolean down=false;
 	private int downI=0;
-	static Bitmap[] pajaro=new Bitmap[3];
+	static Picture[] pajaro=new Picture[3];
+	Rect dst=new Rect();
 	public Pajaro(){
 		if(pajaro[0]==null){
-			pajaro=new Bitmap[3];
+			pajaro=new Picture[3];
 		}
 		makeBitmaps();
 	}
@@ -46,8 +48,9 @@ public class Pajaro extends Object{
 		paint.setFlags(1);
 		if(pajaro[0]==null){
 			for(int a=0;a<pajaro.length;a++){
-				Bitmap pajaroB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-				Canvas canvas = new Canvas(pajaroB);
+				//Bitmap pajaroB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
+				Canvas canvas = new Canvas();
+				canvas=pajaro[a].beginRecording(width, height);
 				paint.setColor(Color.WHITE);
 				paint.setStrokeWidth(Cache.wpor);
 				canvas.drawLine(alaIX[a], alaIY[a], CentroX, CentroY, paint);
@@ -58,12 +61,15 @@ public class Pajaro extends Object{
 				canvas.drawLine(alaIX[a], alaIY[a], CentroX, CentroY, paint);
 				canvas.drawLine(CentroX, CentroY, alaDX[a], alaDY[a], paint);
 				canvas.drawCircle(CentroX, CentroY, Cache.wpor, paint);
-				pajaro[a]=pajaroB;
+				//pajaro[a]=pajaroB;
+				pajaro[a].endRecording();
 			}
 		}
 	}
 	public void draw(Canvas canvas) {
-		canvas.drawBitmap(pajaro[currentFrame], x, y + height+downI+Cache.bagUp, null);
+		//canvas.drawBitmap(pajaro[currentFrame], x, y + height+downI+Cache.bagUp, null);
+		dst.set(x, y + height+Cache.bagUp+downI, x+width, y + height+Cache.bagUp+height+downI);
+		canvas.drawPicture(pajaro[currentFrame], dst);
 		update();
 	}
 	public void move(float timeDeltaSeconds){ 
