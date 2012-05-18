@@ -16,15 +16,19 @@ package com.estudio.cheke.game.gstb.objects;
  */
 import com.estudio.cheke.game.gstb.Cache;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.Rect;
 
 public class Buildings extends Object{
-	private Bitmap Building;
+	private Picture Building;
+	Rect dst=new Rect();
 	public void draw(Canvas canvas){
-		canvas.drawBitmap(Building, x, y, null);
+		//canvas.drawBitmap(Building, x, y, null);
+		dst.set(x, y , x+width, y+height);
+		canvas.drawPicture(Building, dst);
 	}
 	public void move(float timeDeltaSeconds){
 		moveBasic(timeDeltaSeconds);
@@ -63,8 +67,10 @@ public class Buildings extends Object{
 			paint.setColor(0xff111111);
 			break;
 		}
-		Bitmap build = Bitmap.createBitmap((int)(width),(int)(height), Bitmap.Config.ARGB_4444);
-		Canvas canvas = new Canvas(build);
+		Building = new Picture();
+		//Bitmap build = Bitmap.createBitmap((int)(width),(int)(height), Bitmap.Config.ARGB_4444);
+		Canvas canvas = new Canvas();
+		canvas=Building.beginRecording(width, height);
 		canvas.drawRect(0, 0, width, height, paint);//estructura
 		for(int p=0;p<height;p++){//plantas
 			if(p==1||p==3||p==5||p==7){
@@ -76,6 +82,7 @@ public class Buildings extends Object{
 				}
 			}
 		}
-		Building=build;
+		Building.endRecording();
+		//Building=build;
 	}
 }
