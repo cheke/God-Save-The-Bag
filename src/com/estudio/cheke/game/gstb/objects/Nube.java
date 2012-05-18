@@ -16,15 +16,17 @@ package com.estudio.cheke.game.gstb.objects;
  */
 import com.estudio.cheke.game.gstb.Cache;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.Rect;
 
 public class Nube extends Object{
 	private int[] color={Color.WHITE,Color.LTGRAY,0xffeeeeee,0xffdddddd,0xffcccccc};
 	private int radius=25;
-	private Bitmap nubeB = null;
+	private Picture nubeB = null;
+	Rect dst=new Rect();
 	private final int minCircles=5;
 	private int numCircles=5;
 	private int[] colors= new int[numCircles*minCircles];
@@ -72,8 +74,11 @@ public class Nube extends Object{
 			public void run() {
 				width=(radius*4)+4;
 				height=(radius*3)-3+4;
-				nubeB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-				Canvas comboImage = new Canvas(nubeB);
+				nubeB = new Picture();
+				//nubeB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
+				//Canvas comboImage = new Canvas(nubeB);
+				Canvas comboImage = new Canvas();
+				comboImage=nubeB.beginRecording(width, height);
 				Paint pai=new Paint();
 				pai.setFlags(1);
 				int c=0;
@@ -91,12 +96,15 @@ public class Nube extends Object{
 						comboImage.drawCircle(2+radius+(x*radius)+((radius/9)*y), (radius*2)-3+2-((radius/9)*y), radius-((radius/6)*y),pai);
 					}
 				}
+				nubeB.endRecording();
 			}
 		}).start();
 	}
 	public void draw(Canvas canvas) {
 		if(nubeB!=null){
-			canvas.drawBitmap(nubeB, x, y + height+Cache.bagUp, null);
+			//canvas.drawBitmap(nubeB, x, y + height+Cache.bagUp, null);
+			dst.set(x, y + height+Cache.bagUp, x+width, y + height+Cache.bagUp+height);
+			canvas.drawPicture(nubeB, dst);
 		}
 	}
 }
