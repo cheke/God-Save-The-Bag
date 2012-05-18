@@ -49,8 +49,9 @@ public class Pajaro extends Object{
 		if(pajaro[0]==null){
 			for(int a=0;a<pajaro.length;a++){
 				//Bitmap pajaroB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-				Canvas canvas = new Canvas();
-				canvas=pajaro[a].beginRecording(width, height);
+				//Canvas canvas = new Canvas();
+				pajaro[a]=new Picture();
+				Canvas canvas=pajaro[a].beginRecording(width, height);
 				paint.setColor(Color.WHITE);
 				paint.setStrokeWidth(Cache.wpor);
 				canvas.drawLine(alaIX[a], alaIY[a], CentroX, CentroY, paint);
