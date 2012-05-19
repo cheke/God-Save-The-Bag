@@ -48,8 +48,6 @@ public class Pajaro extends Object{
 		paint.setFlags(1);
 		if(pajaro[0]==null){
 			for(int a=0;a<pajaro.length;a++){
-				//Bitmap pajaroB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-				//Canvas canvas = new Canvas();
 				pajaro[a]=new Picture();
 				Canvas canvas=pajaro[a].beginRecording(width, height);
 				paint.setColor(Color.WHITE);
@@ -62,16 +60,16 @@ public class Pajaro extends Object{
 				canvas.drawLine(alaIX[a], alaIY[a], CentroX, CentroY, paint);
 				canvas.drawLine(CentroX, CentroY, alaDX[a], alaDY[a], paint);
 				canvas.drawCircle(CentroX, CentroY, Cache.wpor, paint);
-				//pajaro[a]=pajaroB;
 				pajaro[a].endRecording();
 			}
 		}
 	}
 	public void draw(Canvas canvas) {
-		//canvas.drawBitmap(pajaro[currentFrame], x, y + height+downI+Cache.bagUp, null);
-		dst.set(x, y + height+Cache.bagUp+downI, x+width, y + height+Cache.bagUp+height+downI);
-		canvas.drawPicture(pajaro[currentFrame], dst);
-		update();
+		if(x<canvasheight+100){
+			dst.set(x, y + height+Cache.bagUp+downI, x+width, y + height+Cache.bagUp+height+downI);
+			canvas.drawPicture(pajaro[currentFrame], dst);
+			update();
+		}
 	}
 	public void move(float timeDeltaSeconds){ 
 		moveBasic(timeDeltaSeconds);
