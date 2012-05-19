@@ -26,9 +26,10 @@ public class Buildings extends Object{
 	private Picture Building;
 	Rect dst=new Rect();
 	public void draw(Canvas canvas){
-		//canvas.drawBitmap(Building, x, y, null);
-		dst.set(x, y , x+width, y+height);
-		canvas.drawPicture(Building, dst);
+		if(x<canvasheight+100){
+			dst.set(x, y , x+width, y+height);
+			canvas.drawPicture(Building, dst);
+		}
 	}
 	public void move(float timeDeltaSeconds){
 		moveBasic(timeDeltaSeconds);
@@ -68,7 +69,6 @@ public class Buildings extends Object{
 			break;
 		}
 		Building = new Picture();
-		//Bitmap build = Bitmap.createBitmap((int)(width),(int)(height), Bitmap.Config.ARGB_4444);
 		Canvas canvas = new Canvas();
 		canvas=Building.beginRecording(width, height);
 		canvas.drawRect(0, 0, width, height, paint);//estructura
@@ -83,6 +83,5 @@ public class Buildings extends Object{
 			}
 		}
 		Building.endRecording();
-		//Building=build;
 	}
 }
