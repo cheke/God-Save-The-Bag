@@ -67,8 +67,6 @@ public class Tree extends Object{
 			public void run() {
 				int widthB=maxB;
 				int heightB=maxB;
-				//Bitmap arbol2 = Bitmap.createBitmap(widthB, heightB, Bitmap.Config.ARGB_4444);
-				//Canvas canvas = new Canvas();
 				arbol = new Picture();
 				Canvas canvas=arbol.beginRecording(width, height);
 				Paint paint=new Paint();
@@ -85,10 +83,8 @@ public class Tree extends Object{
 				actualLevel++;
 				stroke-=2;
 				makeRamas(canvas,paint);
-				//arbol=arbol2;
 				width=(int) (Cache.wpor*33);
 				height=(int) (Cache.wpor*33);
-				//arbol=Bitmap.createScaledBitmap(arbol,width,height, true);
 				arbol.endRecording();
 				x=(int) (canvaswidth+800*Math.random());
 				y=(int) (15*Cache.hpor);
@@ -113,11 +109,11 @@ public class Tree extends Object{
 	private void reinit(){
 		x=(int) (canvaswidth*1.5+(800*Math.random()));
 	}
-
 	public void draw(Canvas canvas) {
-		//canvas.drawBitmap(arbol, x, canvasheight-(y + height)+Cache.bagUp, null);
-		dst.set(x, canvasheight-(y + height)+Cache.bagUp, x+width, canvasheight-(y + height+height)+Cache.bagUp);
-		canvas.drawPicture(arbol, dst);
+		if(x<canvasheight+100){
+			dst.set(x, canvasheight-(y*2 + height)+Cache.bagUp, x+width, canvasheight-(y*2)+Cache.bagUp);
+			canvas.drawPicture(arbol, dst);
+		}
 	}
 	private void makeRamas(Canvas canvas,Paint paint){
 		oldramas=ramas;
