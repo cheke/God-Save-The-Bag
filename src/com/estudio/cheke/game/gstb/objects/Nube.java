@@ -37,7 +37,8 @@ public class Nube extends Object{
 	public void move(float timeDeltaSeconds){
 		moveBasicNube(timeDeltaSeconds);
 		if(x<-width){
-			reinit(3);
+			//reinit(3);
+			x=canvaswidth+(3*250);
 		}
 	}
 	private void reinit(int n){
@@ -75,8 +76,6 @@ public class Nube extends Object{
 				width=(radius*4)+4;
 				height=(radius*3)-3+4;
 				nubeB = new Picture();
-				//nubeB = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-				//Canvas comboImage = new Canvas(nubeB);
 				Canvas comboImage = new Canvas();
 				comboImage=nubeB.beginRecording(width, height);
 				Paint pai=new Paint();
@@ -102,9 +101,10 @@ public class Nube extends Object{
 	}
 	public void draw(Canvas canvas) {
 		if(nubeB!=null){
-			//canvas.drawBitmap(nubeB, x, y + height+Cache.bagUp, null);
-			dst.set(x, y + height+Cache.bagUp, x+width, y + height+Cache.bagUp+height);
-			canvas.drawPicture(nubeB, dst);
+			if(x<canvasheight+250){
+				dst.set(x, y + height+Cache.bagUp, x+width, y + height+Cache.bagUp+height);
+				canvas.drawPicture(nubeB, dst);
+			}
 		}
 	}
 }
