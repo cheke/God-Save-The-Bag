@@ -60,6 +60,13 @@ public class GstbActivity extends Activity {
 		super.onResume();
 		SoundManager.resume();
 	}
+	protected void onUserLeaveHint (){
+		SoundManager.pause();
+	}
+	public void onRestart(){
+		super.onRestart();
+		SoundManager.resume();
+	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(Cache.loadImagesB){
